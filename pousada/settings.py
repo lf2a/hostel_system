@@ -1,11 +1,16 @@
+# python standard library
 import os
+
+# external library
+from decouple import config
+from dj_database_url import parse as dburl
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_KEY = '!z%wr&aj9_q6fbmvxri$k_j51179%$+uns145&1kjh)=n)ni=('
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['localhost', 'pousada-amazon.herokuapp.com']
 
@@ -54,11 +59,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pousada.wsgi.application'
 
 
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
 
 
@@ -99,6 +103,8 @@ MEDIA_ROOT = 'media'
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = 'reserva'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     'statics',
