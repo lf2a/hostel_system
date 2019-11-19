@@ -12,7 +12,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', 'pousada-amazon.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'cliente',
     'core',
     'bootstrapform',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -109,3 +110,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     'statics',
 ]
+
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = config('DROPBOX_OAUTH2_TOKEN')
+DROPBOX_ROOT_PATH = '/pousada'
