@@ -1,9 +1,11 @@
 # django library
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.core.paginator import Paginator
 
 # django local
 from core.models import Booking
 from .models import Bedroom, BedroomImage
+from hostel.settings import NUM_OF_ELEMENTS
 
 
 def bedrooms(request):
@@ -35,11 +37,16 @@ def bedrooms(request):
             'images': images,
         })
 
+    paginator = Paginator(data, NUM_OF_ELEMENTS)
+
+    page = request.GET.get('p')
+    rooms = paginator.get_page(page)
+
     return render(
         request=request,
         template_name='bedrooms.html',
         context={
-            'data': data
+            'data': rooms
         }
     )
 

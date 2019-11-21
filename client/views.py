@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 # local django
 from .models import User, Notification
 from .forms import UserForm
+from hostel.settings import NUM_OF_ELEMENTS
 
 
 @login_required
@@ -107,11 +109,15 @@ class Delete(LoginRequiredMixin, View):
 def notification(request):
     notifications = Notification.objects.filter(client__id=request.user.id)
 
+    paginator = Paginator(notifications, NUM_OF_ELEMENTS)
+    page = request.GET.get('p')
+    data = paginator.get_page(page)
+
     return render(
         request=request,
         template_name='notifications.html',
         context={
-            'data': notifications
+            'data': data
         }
     )
 

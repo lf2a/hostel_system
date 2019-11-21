@@ -3,12 +3,14 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 # local django
 from client.models import User
 from bedroom.models import Bedroom, BedroomImage
 from .models import Booking
 from .forms import BookingForm
+from hostel.settings import NUM_OF_ELEMENTS
 
 # python standard library
 from datetime import datetime, date
@@ -33,11 +35,15 @@ def bookings(request):
             'created_at': booking.created_at
         })
 
+    paginator = Paginator(data, NUM_OF_ELEMENTS)
+    page = request.GET.get('p')
+    bks = paginator.get_page(page)
+
     return render(
         request=request,
         template_name='bookings.html',
         context={
-            'data': data
+            'data': bks
         }
     )
 
@@ -139,7 +145,7 @@ class BookingUpdate(LoginRequiredMixin, View):
 
         if booking_form.is_valid():
             booking_form.save()
-            
+
             return redirect('bookings')
         else:
             return redirect('booking_update')

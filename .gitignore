@@ -6,3 +6,6 @@
 media
 .env
 venv
+.vscode
+*.asta
+rotas.txt
