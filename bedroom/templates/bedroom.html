@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block titulo %}Bedroom{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<div id="info-bedroom">
+  <table>
+    <tr>
+      <td colspan="2" class="info-title">Info</td>
+    </tr>
+    <tr>
+      <td class="label-value">Number</td>
+      <td class="value">{{ nmuber }}</td>
+    </tr>
+    <tr>
+      <td class="label-value">Floor</td>
+      <td class="value">{{ floor }}</td>
+    </tr>
+    <tr>
+      <td class="label-value">Bathroom</td>
+      <td class="value">{{ bathroom }}</td>
+    </tr>
+    <tr>
+      <td class="label-value">Bed</td>
+      <td class="value">{{ bed }}</td>
+    </tr>
+    <tr>
+      <td class="label-value">Daily</td>
+      <td class="value">R$: {{ daily }}</td>
+    </tr>
+  </table>
+
+  <form action="/booking/create/" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="bedroom" id="bedroom" readonly value="{{ id }}">
+    <input type="date" name="start" id="start" required>
+    <input type="date" name="finish" id="finish" required>
+    <button type="submit">Booking</button>
+  </form>
+
+  <div class="imagens">
+    {% for image in images %}
+    <img src="{{ image.url.url }}" alt="Bedroom Image">
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

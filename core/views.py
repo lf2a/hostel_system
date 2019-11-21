@@ -1,102 +1,145 @@
 # django
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # local django
-from cliente.models import User
-from quarto.models import Quarto
-from .models import Reserva
+from client.models import User
+from bedroom.models import Bedroom, BedroomImage
+from .models import Booking
+from .forms import BookingForm
 
 # python standard library
-from datetime import datetime
+from datetime import datetime, date
+import json
 
 
-def obter_valor_total(inicio, termino, diaria):
+@login_required
+def bookings(request):
+    bookings = Booking.objects.filter(client__id=request.user.id)
 
-    # recebe a data no formato do tipo string e retorna um objeto datetime
-    t = datetime.strptime(termino, '%Y-%m-%d')
-    i = datetime.strptime(inicio, '%Y-%m-%d')
+    data = []
+    for booking in bookings:
 
-    # calcula a quanditade de dias de `s -> inicio da reserva` até `f -> o termino da reserva`
-    quantidade_dias = (t - i).days + 1
+        data.append({
+            'id': booking.id,
+            'client': booking.client,
+            'bedroom': booking.bedroom,
+            'images': BedroomImage.objects.filter(bedroom__id=booking.bedroom.id),
+            'total': booking.total,
+            'start': booking.start,
+            'finish': booking.finish,
+            'created_at': booking.created_at
+        })
 
-    # verifica se a quantidade de dias é igual a 0 ou 1
-    if quantidade_dias == 0 or quantidade_dias == 1:
-        return diaria
-
-    # se o dia for menor que zero retorna um erro
-    # pode ser causado se o usuário inserir a data de termino antes da data de inicio
-    elif quantidade_dias < 0:
-        return 'error'
-    else:
-        # calcula a diaria vezes a quantidade de dias
-        return float(diaria) * int(quantidade_dias)
-
-
-def criar_reserva(request, id_quarto):
-    # captura o id do usuário logado
-    id_usuario = request.user.id
-
-    # busca as informações do usuário logado
-    usuario = User.objects.get(id=id_usuario)
-
-    # busca as informações do quarto escolhido
-    quarto = Quarto.objects.get(id=id_quarto)
-
-    # captura a data de inicio
-    inicio = request.POST.get('inicio')
-
-    # captura a data de termino
-    termino = request.POST.get('termino')
-
-    # captura a diaria do quarto escolhido
-    diaria = quarto.diaria
-
-    # calcular o valor total `quantidade de dias * diaria`
-    total = obter_valor_total(inicio, termino, diaria)
-
-    # verifica se a data é válida
-    if total == 'error':
-        return HttpResponse('erro')
-
-    # criando o objeto reserva com todos os atributos preenchidos
-    reserva = Reserva(
-        cliente=usuario,
-        quarto=quarto,
-        inicio=inicio,
-        termino=termino,
-        total=total
+    return render(
+        request=request,
+        template_name='bookings.html',
+        context={
+            'data': data
+        }
     )
 
-    # sava objeto no banco de dados
-    reserva.save()
+
+# @login_required
+# def booking_delete(request, id):
+#     booking = get_object_or_404(Booking, id=id)
+
+#     if request.method == 'POST'and booking.client.id == request.user.id:
+#         booking.delete()
+#         return redirect('bookings')
+
+#     return render(request=request, template_name='booking_delete.html')
+
+
+class BookingDelete(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        return render(request=request, template_name='booking_delete.html')
+
+    def post(self, request, *args, **kwargs):
+        booking = get_object_or_404(Booking, id=self.kwargs['id'])
+
+        if booking.client.id == request.user.id:
+            booking.delete()
+            return redirect('bookings')
+        else:
+            return redirect('booking_delete')
 
 
 @login_required
-def reservar_quarto(request, id_quarto):
-
-    # só aceita método do tipo post
+def booking_create(request):
     if request.method == 'POST':
-        criar_reserva(request, id_quarto)
-        # redirecionar para as reservas do usuario
-        return redirect('reservas')
+        client = get_object_or_404(User, id=request.user.id)
+        bedroom = get_object_or_404(Bedroom, id=request.POST.get('bedroom'))
 
-    else:
-        return HttpResponse('método não permitido')
+        start = request.POST.get('start')
+        start_obj = datetime.strptime(start, '%Y-%m-%d')
+
+        finish = request.POST.get('finish')
+        finish_obj = datetime.strptime(finish, '%Y-%m-%d')
+
+        days = (finish_obj - start_obj).days
+        total = float(bedroom.daily) * days
+
+        booking = Bedroom(
+            client=client,
+            bedroom=bedroom,
+            start=start_obj,
+            finish=finish_obj,
+            total=total
+        )
+        booking.save()
+        return redirect('bookings')
+
+    return redirect('bedrooms')
 
 
-@login_required
-def excluir_reserva(request, id_quarto):
-    # buscando a reserva para apagar
-    reserva = Reserva.objects.get(quarto__id=id_quarto)
+# @login_required
+# def booking_update(request, id):
+#     booking = get_object_or_404(Booking, id=id)
 
-    id_user = request.user.id
-    id_user_reserva = reserva.cliente.id
+#     booking_form = BookingForm(request.POST or None, instance=booking)
 
-    # verifica se o id do dono da reserva é o mesmo id do usuario logado
-    if id_user == id_user_reserva:
-        # apagando reserva
-        reserva.delete()
+#     if booking_form.is_valid():
+#         booking_form.save()
+#         return redirect('bookings')
 
-    # redirecionando para a pagina de reservas do usuario
-    return redirect('reservas')
+#     return render(
+#         request=request,
+#         template_name='booking_update.html',
+#         context={
+#             'form': booking_form,
+#             'start': booking.start,
+#             'finish': booking.finish
+#         }
+#     )
+
+
+class BookingUpdate(LoginRequiredMixin, View):
+    def get(self, request, id, *args, **kwargs):
+        booking = get_object_or_404(Booking, id=self.kwargs['id'])
+
+        booking_form = BookingForm(request.POST or None, instance=booking)
+
+        return render(
+            request=request,
+            template_name='booking_update.html',
+            context={
+                'form': booking_form,
+                'start': booking.start,
+                'finish': booking.finish
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        booking = get_object_or_404(Booking, id=self.kwargs['id'])
+
+        booking_form = BookingForm(request.POST or None, instance=booking)
+
+        if booking_form.is_valid():
+            booking_form.save()
+            
+            return redirect('bookings')
+        else:
+            return redirect('booking_update')

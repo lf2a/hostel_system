@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %}{{ user.username }} - Delete{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block main %}
+<h1>Deseja apagar sua conta?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Apagar</button>
+</form>
+{% endblock %}

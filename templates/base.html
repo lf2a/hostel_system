@@ -5,8 +5,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="{% static 'amazon.css' %}">
-  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'bedroom.css' %}">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'amazon.css' %}"> -->
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{% block titulo %}{% endblock %}</title>
 </head>
@@ -14,10 +16,11 @@
 <body>
   {% block navbar %}{% endblock %}
   {% block main %}{% endblock %}
-</body>
 
-<div class="footer">
-  <p>Pousada Amazon - 2019 &copy;</p>
-</div>
+  <div class="footer">
+    <p>Pousada Amazon - 2019 &copy;</p>
+  </div>
+
+</body>
 
 </html>

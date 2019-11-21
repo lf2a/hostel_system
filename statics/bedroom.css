@@ -1,0 +1,120 @@
+/* bedrooms */
+#quartos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.quarto {
+  margin: 5px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 0 1px 0 gray;
+}
+
+@media only screen and (min-width: 700px) {
+  .quarto {
+    width: 300px;
+  }
+
+  .imagem-container {
+    height: 180px;
+  }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 699px) {
+  #quartos {
+    justify-content: center;
+  }
+
+  .quarto {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .quarto {
+    width: 95%;
+  }
+}
+
+.imagem {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.info {
+  width: 100%;
+  position: relative;
+  color: #333;
+  border-collapse: collapse;
+}
+
+.info-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.label-value {
+  font-weight: bold;
+}
+
+.value {
+  font-weight: lighter;
+}
+
+.card-button {
+  padding: 8px 10px;
+  background: #f7f7f7;
+  border-radius: 4px;
+  text-align: center;
+  margin: 5px;
+  text-decoration: none;
+  width: 90%;
+  color: #333;
+  display: block;
+}
+
+.card-button:hover {
+  background: #ebebeb;
+}
+
+/* bedroom */
+#info-bedroom {
+  /* display: flex;
+  justify-content: center; */
+  /* margin: 0 auto; */
+}
+
+#info-bedroom table {
+  width: 600px;
+  background: #fff;
+  box-shadow: 0 0 1px 0 gray;
+  border-collapse: collapse;
+  border-radius: 4px;
+  margin: 20px auto;
+}
+
+#info-bedroom td {
+  padding: 2px 8px;
+}
+
+img {
+  margin: 0 auto 10px auto;
+  width: 600px;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 0 1px 0 gray;
+}
+
+
+@media only screen and (max-width: 650px) {
+  #info-bedroom table {
+    width: 96%;
+  }
+
+  img {
+    width: 96%;
+  }
+}

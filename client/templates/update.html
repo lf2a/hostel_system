@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
 
-{% block titulo %}Login{% endblock %}
+{% block titulo %}{{ user.username }} - Update{% endblock %}
 
 {% block navbar %}
 
 {% endblock %}
 
 {% block main %}
-<div id="autenticacao">
+<div id="atualizar">
     <div>
-        <form action="" method="post">
+        <form method="post">
             {% csrf_token %}
             {{ form|bootstrap }}
-            <button id="envio" type="submit" class="btn btn-info">Entrar</button>
+            <button id="envio" type="submit">Atualizar</button>
         </form>
     </div>
 </div>

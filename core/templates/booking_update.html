@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %}{{ user.username }} - Booking Update{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<h1>{{ start }} - {{ finish }}</h1>
+<div id="atualizar">
+  <div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|bootstrap }}
+      <button id="envio" type="submit">Atualizar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

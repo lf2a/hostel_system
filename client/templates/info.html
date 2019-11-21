@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %}{{ user.username }} - View{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<table>
+  <tr>
+    <td>id</td>
+    <td>{{ user.id }}</td>
+  </tr>
+  <tr>
+    <td>username</td>
+    <td>{{ user.username }}</td>
+  </tr>
+  <tr>
+    <td>first name</td>
+    <td>{{ user.first_name }}</td>
+  </tr>
+  <tr>
+    <td>last name</td>
+    <td>{{ user.last_name }}</td>
+  </tr>
+  <tr>
+    <td>email</td>
+    <td>{{ user.email }}</td>
+  </tr>
+  <tr>
+    <td>celular</td>
+    <td>{{ user.phone1 }}</td>
+  </tr>
+  <tr>
+    <td>fixo</td>
+    <td>{{ user.phone2 }}</td>
+  </tr>
+</table>
+{% endblock %}

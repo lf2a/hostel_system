@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ username }} - Booking info{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<h1>Deseja cancelar esta reserva?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Cancelar</button>
+</form>
+{% endblock %}

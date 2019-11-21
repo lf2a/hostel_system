@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %}{{ user.username }} - Notification{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<p>{{ title }}</p>
+<p>{{ description }}</p>
+<p>{{ created }}</p>
+{% endblock %}

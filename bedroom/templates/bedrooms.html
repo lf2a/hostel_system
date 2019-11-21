@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block titulo %}Amazon - Bedrooms{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<div id="quartos">
+  {% for bedroom in data %}
+  <div class="quarto">
+    {% if bedroom.images %}
+    <div class="imagem-container">
+      <img class="imagem" src="{{ bedroom.images.0.url.url }}" alt="Bedroom Image">
+    </div>
+    {% endif %}
+    <table class="info">
+      <tr>
+        <td colspan="2" class="info-title">Info</td>
+      </tr>
+      <tr>
+        <td class="label-value">Number</td>
+        <td class="value">{{ bedroom.number }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Floor</td>
+        <td class="value">{{ bedroom.floor }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Bathroom</td>
+        <td class="value">{{ bedroom.bathroom }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Bed</td>
+        <td class="value">{{ bedroom.bed }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Daily</td>
+        <td class="value">R$: {{ bedroom.daily }}</td>
+      </tr>
+    </table>
+    <a class="card-button" href="{% url 'bedroom' bedroom.id %}">View</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

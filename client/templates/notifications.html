@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %}{{ user.username }} - Notifications{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+{% for n in data %}
+<a href="{% url 'notification' n.id %}">{{ n.title }}</a>
+{% endfor %}
+{% endblock %}

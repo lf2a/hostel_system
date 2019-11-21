@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ user.username }} - Bookigns{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block main %}
+<div id="quartos">
+  {% for b in data %}
+  <div class="quarto">
+    {% if b.images %}
+    <div class="imagem-container">
+      <img class="imagem" src="{{ b.images.0.url.url }}" alt="Imagem do quarto">
+    </div>
+    {% endif %}
+    <table class="info">
+      <tr>
+        <td colspan="2" class="info-title">Info</td>
+      </tr>
+      <tr>
+        <td class="label-value">Number</td>
+        <td class="value">{{ b.bedroom.number }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Floor</td>
+        <td class="value">{{ b.bedroom.floor }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Bathroom</td>
+        <td class="value">{{ b.bedroom.bathroom }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Bed</td>
+        <td class="value">{{ b.bedroom.bed }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Daily</td>
+        <td class="value">R$: {{ b.bedroom.daily }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Total</td>
+        <td>{{ b.total }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Start</td>
+        <td>{{ b.start }}</td>
+      </tr>
+      <tr>
+        <td class="label-value">Finish</td>
+        <td>{{ b.finish }}</td>
+      </tr>
+      <tr>
+          <td class="label-value">At</td>
+          <td>{{b.created_at}}</td>
+        </tr>
+    </table>
+    <a class="card-button" href="{% url 'bedroom' b.bedroom.id %}">Visualizar</a>
+    <a class="card-button" href="{% url 'booking_update' b.id %}">Atualizar</a>
+    <a class="card-button" href="{% url 'booking_delete' b.id %}">Cancelar</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
