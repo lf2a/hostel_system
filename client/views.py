@@ -25,26 +25,6 @@ def view_info(request):
     )
 
 
-# @login_required
-# def update_info(request):
-#     client = User.objects.get(id=request.user.id)
-
-#     user_form = UserForm(request.POST or None, instance=client)
-
-#     if user_form.is_valid():
-#         user_form.save()
-#         return redirect('user_info')
-
-#     return render(
-#         request=request,
-#         template_name='update.html',
-#         context={
-#             'form': user_form,
-#             'user': request.user
-#         }
-#     )
-
-
 class UpdateInfo(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -73,20 +53,6 @@ class UpdateInfo(LoginRequiredMixin, View):
 
         else:
             return redirect('update_info')
-
-
-# @login_required
-# def delete(request):
-#     client = User.objects.get(id=request.user.id)
-
-#     if request.method == 'POST':
-#         client.delete()
-#         return redirect('logout')
-
-#     return render(
-#         request=request,
-#         template_name='delete.html'
-#     )
 
 
 class Delete(LoginRequiredMixin, View):

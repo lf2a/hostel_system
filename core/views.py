@@ -48,17 +48,6 @@ def bookings(request):
     )
 
 
-# @login_required
-# def booking_delete(request, id):
-#     booking = get_object_or_404(Booking, id=id)
-
-#     if request.method == 'POST'and booking.client.id == request.user.id:
-#         booking.delete()
-#         return redirect('bookings')
-
-#     return render(request=request, template_name='booking_delete.html')
-
-
 class BookingDelete(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request=request, template_name='booking_delete.html')
@@ -99,27 +88,6 @@ def booking_create(request):
         return redirect('bookings')
 
     return redirect('bedrooms')
-
-
-# @login_required
-# def booking_update(request, id):
-#     booking = get_object_or_404(Booking, id=id)
-
-#     booking_form = BookingForm(request.POST or None, instance=booking)
-
-#     if booking_form.is_valid():
-#         booking_form.save()
-#         return redirect('bookings')
-
-#     return render(
-#         request=request,
-#         template_name='booking_update.html',
-#         context={
-#             'form': booking_form,
-#             'start': booking.start,
-#             'finish': booking.finish
-#         }
-#     )
 
 
 class BookingUpdate(LoginRequiredMixin, View):
