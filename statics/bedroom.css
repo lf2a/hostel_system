@@ -1,0 +1,143 @@
+/* bedrooms */
+#rooms {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.room {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  margin: 20px 0 0 20px;
+  box-shadow: 0 0 2px 0 gray;
+  border-radius: 10px;
+}
+
+.info {
+  margin: 100px 0 0 0;
+  padding: 0 10px;
+}
+
+.info table {
+  padding: 0 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.685);
+  border-radius: 10px;
+}
+
+.info table td {
+  padding: 2px 0;
+}
+
+.card-button {
+  color: var(--gray-color);
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  background: var(--dark-blue-color);
+  padding: 5px 0;
+  width: 100%;
+  display: block;
+}
+
+.card-button:hover {
+  background: var(--gray-color);
+  color: var(--dark-blue-color);
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.text {
+  color: var(--dark-blue-color);
+}
+
+.pag {
+  padding: 5px 10px;
+  background: var(--dark-blue-color);
+  color: var(--gray-color);
+  text-decoration: none;
+  border-radius: 20px;
+  border: 2px solid var(--dark-blue-color);
+}
+
+.pag:hover {
+  border: 2px solid var(--dark-blue-color);
+  background: var(--graycolor);
+  color: var(--dark-blue-color);
+}
+
+@media only screen and (max-width: 720px){
+  .room {
+    width: 90%;
+    height: 322px;
+  }
+}
+
+/* bedroom */
+#info-bedroom {
+  display: grid;
+  justify-items: center;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 400px;
+  margin: 10px 0;
+}
+
+.table tr {
+  border-bottom: 1px dotted var(--dark-blue-color);
+}
+
+.info-title {
+  text-align: center;
+}
+
+.container form {
+  width: 400px;
+}
+
+.container form input {
+  display: block;
+  width: 100%;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  margin: 20px 0 0 0;
+  border-radius: 20px;
+  border: 1px solid var(--dark-blue-color);
+}
+
+.submit {
+  width: 100%;
+  padding: 5px 10px;
+  background: var(--dark-blue-color);
+  color: var(--gray-color);
+  margin: 10px 0 0 0;
+  border-radius: 20px;
+  border: 1px solid var(--dark-blue-color);
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: var(--gray-color);
+  color: var(--dark-blue-color);
+  border: 1px solid var(--dark-blue-color);
+}
+
+.images {
+  width: 400px;
+}
+
+.images img {
+  width: 400px;
+  margin: 20px 0;
+  border-radius: 20px;
+  padding: 5px;
+}
