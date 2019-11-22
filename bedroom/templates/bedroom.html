@@ -21,7 +21,7 @@
     </tr>
     <tr>
       <td class="label-value">Number</td>
-      <td class="value">{{ nmuber }}</td>
+      <td class="value">{{ number }}</td>
     </tr>
     <tr>
       <td class="label-value">Floor</td>
@@ -46,7 +46,9 @@
     <form action="/booking/create/" method="post">
       {% csrf_token %}
       <input type="hidden" name="bedroom" id="bedroom" readonly value="{{ id }}">
+      <label for="start">Start:</label>
       <input type="date" name="start" id="start" required>
+      <label for="finish">Finish:</label>
       <input type="date" name="finish" id="finish" required>
       <button class="submit" type="submit">Reserve</button>
     </form>

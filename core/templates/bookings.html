@@ -64,9 +64,9 @@
         </tr>
       </table>
     </div>
-    <a class="card-button" href="{% url 'bedroom' b.bedroom.id %}">Visualizar</a>
-    <a class="card-button" href="{% url 'booking_update' b.id %}">Atualizar</a>
-    <a class="card-button delete" href="{% url 'booking_delete' b.id %}">Cancelar</a>
+    <a class="card-button" href="{% url 'bedroom' b.bedroom.id %}">View</a>
+    <a class="card-button" href="{% url 'booking_update' b.id %}">Update</a>
+    <a class="card-button delete" href="{% url 'booking_delete' b.id %}">Cancel</a>
   </div>
   {% endfor %}
 </div>
