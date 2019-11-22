@@ -1,0 +1,47 @@
+/* about */
+
+#navbar {
+  background: var(--dark-blue-color);
+  height: 50px;
+  padding: 0 5px;
+  box-shadow: 0 0 10px 0 gray;
+}
+
+.logo,
+.link-nav {
+  line-height: 50px;
+  color: var(--gray-color);
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 1.4em;
+}
+
+.link-nav {
+  font-size: 1em;
+  margin: 0 0 0 20px;
+}
+
+.logout-nav-link {
+  color: var(--orange-color) !important;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 20px 0;
+}
+
+.address {
+  border-collapse: collapse;
+  /* width: 90%; */
+}
+
+.address td {
+  padding: 10px 15px;
+}
+
+.address tr {
+  border: 2px dashed var(--dark-blue-color);
+} 

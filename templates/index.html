@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block titulo %}Home{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block main %}
 <div id="auth">
@@ -19,11 +19,11 @@
 
 <div id="links">
   <div class="div-link">
-    <a class="link" href="{% url 'bedrooms' %}">Bedroom</a>
+    <a class="link" href="{% url 'bedrooms' %}">Bedrooms</a>
   </div>
   {% if request.user.is_authenticated %}
   <div class="div-link">
-    <a class="link" href="{% url 'bookings' %}">Booking</a>
+    <a class="link" href="{% url 'bookings' %}">My Bookings</a>
   </div>
   {% endif %}
   <div class="div-link">
