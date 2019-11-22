@@ -9,3 +9,9 @@ venv
 .vscode
 *.asta
 rotas.txt
+demo_template
+script.js
+style.css
+amazon.css
+bedroom.css
+base.css
