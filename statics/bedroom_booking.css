@@ -15,8 +15,19 @@
   border-radius: 10px;
 }
 
+.room-booking {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 300px;
+  height: 510px;
+  background-size: cover;
+  margin: 20px 0 0 20px;
+  box-shadow: 0 0 2px 0 gray;
+  border-radius: 10px;
+}
+
 .info {
-  margin: 100px 0 0 0;
+  margin: 94px 0 0 0;
   padding: 0 10px;
 }
 
@@ -39,13 +50,23 @@
   text-decoration: none;
   background: var(--dark-blue-color);
   padding: 5px 0;
-  width: 100%;
+  width: 98%;
   display: block;
+  margin: 2px 3px;
 }
 
 .card-button:hover {
   background: var(--gray-color);
   color: var(--dark-blue-color);
+}
+
+.delete {
+  background: var(--orange-color);
+}
+
+.delete:hover {
+  background: var(--gray-color);
+  color: var(--orange-color);
 }
 
 .paginator {
@@ -73,10 +94,15 @@
   color: var(--dark-blue-color);
 }
 
-@media only screen and (max-width: 720px){
+@media only screen and (max-width: 720px) {
   .room {
     width: 90%;
     height: 322px;
+  }
+
+  .room-booking {
+    width: 90%;
+    height: 484px;
   }
 }
 
@@ -98,6 +124,12 @@
 
 .info-title {
   text-align: center;
+}
+
+.reserved {
+  margin: 20px 0;
+  font-weight: lighter;
+  color: var(--orange-color);
 }
 
 .container form {
@@ -140,4 +172,59 @@
   margin: 20px 0;
   border-radius: 20px;
   padding: 5px;
+}
+
+/* booking update */
+.date {
+  font-weight: lighter;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#update {
+  width: 400px;
+  margin: 40px auto;
+}
+
+#update form input {
+  width: 100%;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 2px solid var(--dark-blue-color);
+}
+
+#update form button {
+  margin: 5px 0;
+  width: 100%;
+  padding: 5px 10px;
+  background: var(--dark-blue-color);
+  color: var(--gray-color);
+  font-size: 1.2em;
+  border: 1px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* booking delete */
+.msg-delete {
+  font-weight: lighter;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-delete {
+  display: grid;
+  justify-content: center;
+}
+
+.form-delete button {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  background: var(--orange-color);
+  border-radius: 20px;
+  border: 0;
+  color: var(--gray-color);
+  margin: 20px 0;
+  cursor: pointer;
 }

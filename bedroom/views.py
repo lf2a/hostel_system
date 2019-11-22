@@ -1,6 +1,7 @@
 # django library
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator
+from django.core.exceptions import ObjectDoesNotExist
 
 # django local
 from core.models import Booking
@@ -62,6 +63,14 @@ def bedroom(request, id):
     bedroom = get_object_or_404(Bedroom, id=id)
     images = get_list_or_404(BedroomImage, bedroom__id=bedroom.id)
 
+    reserved = None
+    try:
+        booking = Booking.objects.get(bedroom__id=bedroom.id)
+        if booking.id == bedroom.id:
+            reserved = False
+    except ObjectDoesNotExist:
+        reserved = True
+
     try:
         data = {
             'id': bedroom.id,
@@ -71,6 +80,7 @@ def bedroom(request, id):
             'bed': bedroom.bed,
             'daily': bedroom.daily,
             'images': images,
+            'reserved': reserved
         }
 
     except NameError:
