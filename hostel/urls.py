@@ -6,10 +6,37 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404, handler500
 
+# django rest framework
+from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
+
 # local django
 from .views import index, about, logout_system, SignUp, error_404_view
+from bedroom.api.viewsets import BedroomViewSet
+from client.api.viewsets import UserViewSet, NotificationViewSet
+from core.api.viewsets import BookingViewSet
+
+router = routers.DefaultRouter()
+
+router.register('bedroom', BedroomViewSet, base_name='Bedroom')
+router.register('user', UserViewSet, base_name='user')
+router.register('booking', BookingViewSet, base_name='booking')
+router.register(
+    'notification',
+    NotificationViewSet,
+    base_name='notification'
+)
 
 urlpatterns = [
+    # api
+    path('api/', include(router.urls)),
+
+    # api token headers
+    path('token/', obtain_auth_token),
+
+    # login post
+    path('rest-auth/', include('rest_auth.urls')),
+
     # hostel
     path('', index, name='index'),
     path('about/', about, name='about'),
@@ -19,7 +46,7 @@ urlpatterns = [
 
     # user
     path('user/', include('client.urls')),
-    
+
     # booking
     path('booking/', include('core.urls')),
 

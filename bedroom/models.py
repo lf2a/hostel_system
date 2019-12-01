@@ -26,7 +26,11 @@ class BedroomImage(models.Model):
     )
 
     bedroom = models.ForeignKey(
-        Bedroom, on_delete=models.CASCADE, verbose_name='Bedroom')
+        Bedroom,
+        on_delete=models.CASCADE,
+        verbose_name='Bedroom',
+        related_name='photos'
+    )
 
     def __str__(self):
         return '[ %s ] %s' % (self.bedroom.floor, self.bedroom.number)

@@ -15,7 +15,15 @@ class UserAdmin(UA):
     fieldsets = (
         (
             None, {
-                'fields': ('email', 'password')
+                'fields': (
+                    'username',
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'phone1',
+                    'phone2',
+                    'password'
+                )
             }),
         (
             'Permissions', {
