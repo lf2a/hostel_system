@@ -1,41 +1,41 @@
 # Hostel System
 
 ## Home
-![image home](home.png)
+![image home](doc/home.png)
 
 ## User
 ### user info
-![image info](user-info.png)
+![image info](doc/user-info.png)
 
 ### user update info
-![image update info](update-user-info.png)
+![image update info](doc/update-user-info.png)
 
 ### delete user
-![image delete user](delete-user.png)
+![image delete user](doc/delete-user.png)
 
 ## Notifications
-![image notifications](notifications.png)
+![image notifications](doc/notifications.png)
 
 ### notification
-![image notification](notification.png)
+![image notification](doc/notification.png)
 
 ## Bedrooms
-![image bedrooms](bedrooms.png)
+![image bedrooms](doc/bedrooms.png)
 
 ### bedroom info
-![image bedroom](bedroom.png)
+![image bedroom](doc/bedroom.png)
 
 ## Bookings
-![image bookings](bookings.png)
+![image bookings](doc/bookings.png)
 
 ### Booking update
-![image update](booking-update.png)
+![image update](doc/booking-update.png)
 
 ### Booking Delete
-![image delete](booking-delete.png)
+![image delete](doc/docbooking-delete.png)
 
 ## About
-![about](about.png)
+![about](doc/about.png)
 
 # Rest API
 
