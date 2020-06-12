@@ -1,103 +1,66 @@
 # django library
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.views import View
+from django.views.generic.base import TemplateView
+from django.views.generic import UpdateView
+from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
-from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 
 # local django
-from .models import User, Notification
-from .forms import UserForm
-from hostel.settings import NUM_OF_ELEMENTS
+from client.models import User
+from client.forms import UserModelForm
 
 
-@login_required
-def view_info(request):
-    client = User.objects.get(id=request.user.id)
-
-    return render(
-        request=request,
-        template_name='info.html',
-        context={
-            'user': client
-        }
-    )
-
-
-class UpdateInfo(LoginRequiredMixin, View):
+class UserProfileTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'client/user_detail_view.html'
+    login_url = reverse_lazy('login')
 
     def get(self, request, *args, **kwargs):
-        client = User.objects.get(id=request.user.id)
-
-        user_form = UserForm(request.POST or None, instance=client)
-
-        return render(
-            request=request,
-            template_name='update.html',
-            context={
-                'form': user_form,
-                'user': request.user
-            }
-        )
-
-    def post(self, request, *args, **kwargs):
-        client = User.objects.get(id=request.user.id)
-
-        user_form = UserForm(request.POST or None, instance=client)
-
-        if user_form.is_valid():
-            user_form.save()
-
-            return redirect('user_info')
-
-        else:
-            return redirect('update_info')
+        context = self.get_context_data(**kwargs)
+        context["user"] = User.objects.get(id=request.user.id)
+        return self.render_to_response(context)
 
 
-class Delete(LoginRequiredMixin, View):
-    template_name = 'delete.html'
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'client/user_edit_view.html'
+    form_class = UserModelForm
+    success_url = reverse_lazy('user_detail')
+    login_url = reverse_lazy('login')
 
     def get(self, request, *args, **kwargs):
-        return render(
-            request=request,
-            template_name='delete.html'
-        )
+        self.kwargs["pk"] = request.user.id
+        self.object = self.get_object()
+        return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        client = User.objects.get(id=request.user.id)
-        client.delete()
-
-        return redirect('logout')
-
-
-@login_required
-def notification(request):
-    notifications = Notification.objects.filter(client__id=request.user.id)
-
-    paginator = Paginator(notifications, NUM_OF_ELEMENTS)
-    page = request.GET.get('p')
-    data = paginator.get_page(page)
-
-    return render(
-        request=request,
-        template_name='notifications.html',
-        context={
-            'data': data
-        }
-    )
+        self.kwargs["pk"] = request.user.id
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
 
 
-@login_required
-def get_notification(request, id):
-    notification = get_object_or_404(Notification, id=id)
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    model = User
+    success_url = reverse_lazy('bedrooms')
+    login_url = reverse_lazy('login')
 
-    return render(
-        request=request,
-        template_name='notification.html',
-        context={
-            'title': notification.title,
-            'description': notification.description,
-            'created': notification.created_at
-        }
-    )
+    def get(self, request, *args, **kwargs):
+        self.kwargs["pk"] = request.user.id
+        self.object = self.get_object()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.kwargs["pk"] = request.user.id
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(success_url)

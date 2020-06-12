@@ -2,23 +2,15 @@
 from django.urls import path
 
 # local django
-from .views import view_info, notification, get_notification, Delete, UpdateInfo
+from client.views import UserProfileTemplateView, UserUpdateView, UserDeleteView
 
 urlpatterns = [
-    # /user/
-    path('', view_info, name='user_info'),
+    # /my/profile/
+    path('profile/', UserProfileTemplateView.as_view(), name='user_detail'),
 
-    # /user/update/
-    # path('update/', update_info, name='update_info'),
-    path('update/', UpdateInfo.as_view(), name='update_info'),
+    # /my/update/
+    path('update/', UserUpdateView.as_view(), name='update_info'),
 
-    # /user/delete/
-    # path('delete/', delete, name='delete'),
-    path('delete/', Delete.as_view(), name='delete'),
-
-    # /user/notification/
-    path('notification/', notification, name='notifications'),
-
-    # /user/notification/<str:id>
-    path('notification/<str:id>', get_notification, name='notification')
+    # /my/delete/
+    path('delete/', UserDeleteView.as_view(), name='delete_account'),
 ]

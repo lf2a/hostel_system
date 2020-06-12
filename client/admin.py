@@ -1,49 +1,25 @@
+# django
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as UA
+from django.contrib.auth.admin import UserAdmin
 
-from .form import UserCreationForm, UserChangeForm
-from .models import User, Notification
+# local django
+from client.forms import CustomUserCreationForm, CustomUserChangeForm
+from client.models import User
 
 
-class UserAdmin(UA):
-    add_form = UserCreationForm
-    form = UserChangeForm
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
     model = User
-    list_display = ('email', 'is_staff', 'is_active')
-    list_filter = ('email', 'is_staff', 'is_active')
+    list_display = ('username', 'first_name', 'last_name', 'mobile_phone', 'email', 'is_staff', 'is_active')
+    list_filter = ('is_staff', 'is_active')
 
-    fieldsets = (
-        (
-            None, {
-                'fields': (
-                    'username',
-                    'first_name',
-                    'last_name',
-                    'email',
-                    'phone1',
-                    'phone2',
-                    'password'
-                )
-            }),
-        (
-            'Permissions', {
-                'fields': ('is_staff', 'is_active')
-            }
-        ),
-    )
+    fieldsets = (('Info', {'fields': ('username', 'first_name', 'last_name', 'email', 'mobile_phone', 'password',)}),
+                 ('Permissions', {'fields': ('is_staff', 'is_active')}),)
 
     add_fieldsets = (
-        (
-            None, {
-                'classes': ('wide',),
-                'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')
-            }
-        ),
-    )
+        (None, {'classes': ('wide',), 'fields': ('username', 'email', 'password1', 'password2', 'is_staff')}),)
 
-    search_fields = ('email',)
+    search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
-
-
-admin.site.register(User, UserAdmin)
-admin.site.register(Notification)
