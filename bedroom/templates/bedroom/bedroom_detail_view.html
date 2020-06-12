@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Bedroom - View{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Floor</th>
+                    <th scope="col">Bathroom</th>
+                    <th scope="col">Bed</th>
+                    <th scope="col">Daily</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>{{ object.number }}</th>
+                    <td>{{ object.floor }}</td>
+                    <td>{{ object.bathroom }}</td>
+                    <td>{{ object.bed }}</td>
+                    <td>USD: {{ object.daily }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+                {# FIXME: replace "/booking/1/book/" to "{% url 'booking' %}" #}
+                <a href="/booking/1/book/" class="btn btn-primary btn-lg btn-block">Book this room</a>
+                {% if perms.bedroom.add_bedroomimage %}
+                    <a class="btn btn-info btn-lg btn-block"
+                       href='/admin/bedroom/bedroomimage/add/'>Add Image</a>
+                {% endif %}
+                {% if perms.bedroom.change_bedroomimage %}
+                    <a class="btn btn-warning btn-lg btn-block"
+                       href='/admin/bedroom/bedroom/{{ object.id }}/change/'>Edit Bedroon</a>
+                {% endif %}
+                {% if permsbedroom.delete_bedroomimage %}
+                    <a class="btn btn-danger btn-lg btn-block"
+                       href='/admin/bedroom/bedroom/{{ object.id }}/delete/'>Delete Bedroom</a>
+                {% endif %}
+            </div>
+        </div>
+        {% for photo in object.photos.all %}
+            <div class="image-container">
+                <img class="bedroom-image img-fluid" src="{{ photo.url.url }}" alt="Bedroom Image">
+                <div class="button-container">
+                    {% if perms.bedroom.change_bedroom %}
+                        <a class="button-image btn btn-warning btn-lg btn-block"
+                           href='/admin/bedroom/bedroom/{{ object.id }}/change/'>Edit Image</a>
+                    {% endif %}
+                    {% if perms.bedroom.delete_bedroom %}
+                        <a class="button-image btn btn-danger btn-lg btn-block"
+                           href='/admin/bedroom/bedroom/{{ object.id }}/delete/'>Delete Image</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

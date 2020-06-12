@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}Bedrooms{% endblock %}
+
+{% block content %}
+    {% if page_obj|length == 0 %}
+        <main role="main" class="container">
+            <div class="nothing-bedroom">
+                <h1 class="display-1">Nothing here. 😢</h1>
+            </div>
+        </main>
+    {% else %}
+        <div class="container d-flex">
+            {% for obj in page_obj %}
+                {#        {% for photo in obj.photos.all %}#}
+                {#            {{ photo.url.url }}<br>#}
+                {#        {% endfor %}#}
+                <div class="card">
+                    {% with obj.photos.all.0.url.url as url %}
+                        {% if url %}
+                            <img src="{{ url }}" height="180" class="card-img-top" alt="Bedroom Image">
+                        {% else %}
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
+                                 xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                 focusable="false"
+                                 role="img" aria-label="No Image">
+                                <title>No Image</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="50%" y="50%" fill="#dee2e6" dy=".3em">No Image</text>
+                            </svg>
+                        {% endif %}
+                    {% endwith %}
+                    <div class="card-body">
+                        <h5 class="card-title">Daily: USD: {{ obj.daily }}</h5>
+                        <p class="card-text">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td scope="row">Number</td>
+                                <td scope="row">{{ obj.number }}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Floor</td>
+                                <td>{{ obj.floor }}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Bed</td>
+                                <td>{{ obj.bed }}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Bathroom</td>
+                                <td>{{ obj.bathroom }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </p>
+                        <a href="{% url 'bedroom' obj.id %}" class="btn btn-primary btn-lg btn-block">View</a>
+                        {% if perms.bedroom.change_bedroom %}
+                            <a class="btn btn-warning btn-lg btn-block"
+                               href='/admin/bedroom/bedroom/{{ obj.id }}/change/'>Edit</a>
+                        {% endif %}
+                        {% if perms.bedroom.delete_bedroom %}
+                            <a class="btn btn-danger btn-lg btn-block"
+                               href='/admin/bedroom/bedroom/{{ obj.id }}/delete/'>Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if is_paginated %}
+        <div class="container">
+            <div class="row justify-content-center pagination-block">
+                <nav aria-label="nav-pagination">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&laquo;</a>
+                            </li>
+                        {% endif %}
+                        {% if paginator.page_range|length > 5 %}
+                            {% for num in paginator.page_range|slice:":5" %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">{{ num }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">...</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                            </li>
+                        {% else %}
+                            {% for num in paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">{{ num }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -2,12 +2,12 @@
 from django.urls import path
 
 # local django
-from .views import bedrooms, bedroom
+from bedroom.views import BedroomList, BedroomDetailView
 
 urlpatterns = [
     # /bedroom/
-    path('', bedrooms, name='bedrooms'),
+    path('', BedroomList.as_view(), name='bedrooms'),
 
-    # /bedroom/<str:id>/
-    path('<str:id>/', bedroom, name='bedroom')
+    # /bedroom/<int:pk>/
+    path('<int:pk>/', BedroomDetailView.as_view(), name='bedroom')
 ]
