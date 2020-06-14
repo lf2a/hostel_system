@@ -27,8 +27,7 @@
             </table>
 
             <div>
-                {# FIXME: replace "/booking/1/book/" to "{% url 'booking' %}" #}
-                <a href="/booking/1/book/" class="btn btn-primary btn-lg btn-block">Book this room</a>
+                <a href="{% url 'booking_new' id=object.id %}" class="btn btn-primary btn-lg btn-block">Book this room</a>
                 {% if perms.bedroom.add_bedroomimage %}
                     <a class="btn btn-info btn-lg btn-block"
                        href='/admin/bedroom/bedroomimage/add/'>Add Image</a>
