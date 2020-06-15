@@ -1,19 +1,24 @@
 # django
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 # local django
-from .views import bookings, booking_create, BookingUpdate, BookingDelete
+from core.views import HomePageView, ContactView, SignUpView, LogoutView
 
 urlpatterns = [
-    # /booking/
-    path('', bookings, name='bookings'),
+    # /
+    path('', HomePageView.as_view(), name='index'),
 
-    # /booking/delete/<str:id>/
-    path('delete/<str:id>', BookingDelete.as_view(), name='booking_delete'),
+    # only POST
+    # /send-email/
+    path('send-email/', ContactView.as_view(), name='send_email'),
 
-    # /booking/create/
-    path('create/', booking_create, name='booking_create'),
+    # /login/
+    path('login/', auth_views.LoginView.as_view(), name='login'),
 
-    # /booking/update/<str:id>/
-    path('update/<str:id>', BookingUpdate.as_view(), name='booking_update'),
+    # /signup/
+    path('signup/', SignUpView.as_view(), name='signup'),
+
+    # /logout/
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]

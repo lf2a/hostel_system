@@ -1,0 +1,157 @@
+{% load bootstrap4 %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}"/>
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    {% bootstrap_css %}
+    {% block header %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg" width="30" height="30" alt="">
+    </a>
+    <a class="navbar-brand text-success" href="{% url 'index' %}">Hostel System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% with user.is_authenticated as auth_user %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'bedrooms' %}">Bedrooms</a>
+                </li>
+                {% if auth_user %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'bookings' %}">Bookings</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'index' %}#contact">Contact</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'index' %}#about">About</a>
+                </li>
+                {% if auth_user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {% if user.get_full_name == '' %}
+                                {{ user.email }}
+                            {% else %}
+                                Hello, {{ user.get_full_name }}
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-dark" href="{% url 'user_detail' %}">Profile</a>
+                            <a class="dropdown-item text-dark" href="{% url 'update_info' %}">Edit Profile</a>
+                            <a class="dropdown-item text-dark" href="{% url 'delete_account' %}">Delete account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-dark" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if auth_user %}
+                <a class="btn btn-outline-dark my-2 my-sm-0" href="{% url 'admin:index' %}">Admin</a>
+            {% else %}
+                <a class="btn btn-outline-dark my-2 my-sm-0" href="{% url 'signup' %}">Sign Up</a>
+                <span style="margin: 0 4px"></span>
+                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        {% endwith %}
+    </div>
+</nav>
+
+<div class="container">{% bootstrap_messages %}</div>
+{% block content %}{% endblock %}
+
+<div class="container">
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                <img class="mb-2" src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg" alt=""
+                     width="24"
+                     height="24"><h6>Hostel System</h6>
+                <small class="d-block mb-3 text-muted">made with 💕 by <a href="https://github.com/lf2a"
+                                                                          class="text-info">Luiz Filipy</a><br>
+                    Thanks <a href="https://getbootstrap.com/" class="text-primary">Bootstrap</a>, <br>
+                    <a href="https://django-bootstrap4.readthedocs.io/en/latest/"
+                       class="text-success">django-bootstrap4</a>, <br>
+                    <a href="https://www.djangoproject.com/" class="text-success">Django</a>
+                    and <a href="https://www.python.org/" class="text-success">Python</a>...<br>
+                    &copy; 2019-2020</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Features</h5>
+                <ul class="list-unstyled text-small">
+                    <li>
+                        <a class="text-muted" href="#">Cool stuff</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Random feature</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Team feature</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Stuff for developers</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Another one</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Last time</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Resources</h5>
+                <ul class="list-unstyled text-small">
+                    <li>
+                        <a class="text-muted" href="#">Resource</a></li>
+                    <li>
+                        <a class="text-muted" href="#">Resource name</a></li>
+                    <li>
+                        <a class="text-muted" href="#">Another resource</a></li>
+                    <li>
+                        <a class="text-muted" href="#">Final resource</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>About</h5>
+                <ul class="list-unstyled text-small">
+                    <li>
+                        <a class="text-muted" href="#">Team</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Locations</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Privacy</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="#">Terms</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+{% bootstrap_javascript jquery='full' %}
+{% block javascript %}{% endblock %}
+</body>
+</html>
