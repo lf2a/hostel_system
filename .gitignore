@@ -1,12 +1,10 @@
 # See the name for you IDE
 .idea
+.run
+.vscode
 # If you are using sqlite3
 *.sqlite3
-*pyc
+*.pyc
 media
 .env
-venv
-.vscode
-*.asta
-rotas.txt
 staticfiles
