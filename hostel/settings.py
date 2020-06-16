@@ -7,33 +7,25 @@ from dj_database_url import parse as dburl
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# pagination
-NUM_OF_ELEMENTS = 10
-
 SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
-
 INSTALLED_APPS = [
+    'bootstrap4',
+    'core',
+    'client',
+    'bedroom',
+    'booking',
+    'storages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'allauth',
-    'rest_auth.registration',
-    'bedroom',
-    'client',
-    'core',
-    'bootstrapform',
-    'storages',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
@@ -65,7 +57,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'hostel.wsgi.application'
-
 
 default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
@@ -100,8 +91,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-STATIC_URL = '/static/'
+STATIC_URL = '/statics/'
 
 MEDIA_URL = '/media/'
 
@@ -110,13 +100,23 @@ MEDIA_ROOT = 'media'
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    'statics',
-]
+STATICFILES_DIRS = ['core/statics']
 
+# upload images
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = config('DROPBOX_OAUTH2_TOKEN')
 DROPBOX_ROOT_PATH = '/hostel'
+
+""" Email config
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = 'no-reply@admin.com.br
+EMAIL_PORT = 1234
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'password'
+DEFAULT_FROM_EMAIL = 'contact@admin.com'
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
