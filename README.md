@@ -26,4 +26,20 @@
 ![image delete](doc/booking-delete-new.png)
 
 # Rest API
-> temporarily removed
+
+## Core
+
+### Get/Create access token
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/get-token/` | POST | No | `username` (email), `password` |
+
+##### Description
+>Endpoint to log in and receive the access token, providing username (email) and password
+
+##### Output:
+```json
+{
+  "token": "dac9c44bf18f1d370d67bb6177dea7a83b37e105"
+}
+```

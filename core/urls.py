@@ -2,6 +2,9 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
+# django rest framework
+from rest_framework.authtoken import views
+
 # local django
 from core.views import HomePageView, ContactView, SignUpView, LogoutView
 
@@ -21,4 +24,7 @@ urlpatterns = [
 
     # /logout/
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    # /get-token/  POST body{email, password}
+    path('get-token/', views.obtain_auth_token)
 ]
