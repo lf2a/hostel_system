@@ -27,6 +27,8 @@
 
 # Rest API
 
+> header: Authorization: Token <token_here>
+
 ## Core
 
 ### Get/Create access token
@@ -42,4 +44,32 @@
 {
   "token": "dac9c44bf18f1d370d67bb6177dea7a83b37e105"
 }
+```
+
+### SignUp
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/api/signup/` | POST | No | `username`, `email`, `password` (campos obrigatórios) |
+
+##### Description
+>Endpoint to create a user in the system and return the access token of this user created
+
+##### Output:
+```json
+{
+  "token": "dac9c44bf18f1d370d67bb6177dea7a83b37e105"
+}
+```
+
+### Logout
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/api/logout/` | POST | Yes | None |
+
+##### Description
+>Endpoint to logout of the system. The access token is destroyed
+
+##### Output:
+```http request
+201 OK
 ```
