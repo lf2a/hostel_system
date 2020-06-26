@@ -73,3 +73,58 @@
 ```http request
 201 OK
 ```
+
+## Client
+
+### Get info
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/my/api/` | GET | Yes | None |
+
+##### Description
+>Endpoint to get user info
+
+##### Output:
+```http request
+201 OK
+{
+   "username": "",
+   "first_name": "",
+   "last_name": "",
+   "email": "",
+   "mobile_phone": ""
+}
+```
+
+### Update info
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/my/api/` | PATCH (partial) PUT (full) | Yes | Yes |
+
+##### Description
+>Endpoint to update user info.
+
+##### Output:
+```http request
+201 OK
+{
+   "username": "",
+   "first_name": "",
+   "last_name": "",
+   "email": "",
+   "mobile_phone": ""
+}
+```
+
+### Delete user
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/my/api/` | DELETE | Yes | No |
+
+##### Description
+>Endpoint to delete user.
+
+##### Output:
+```http request
+204 No Content
+```
