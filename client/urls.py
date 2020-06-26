@@ -3,6 +3,7 @@ from django.urls import path
 
 # local django
 from client.views import UserProfileTemplateView, UserUpdateView, UserDeleteView
+from client.api.views import UserView
 
 urlpatterns = [
     # /my/profile/
@@ -13,4 +14,7 @@ urlpatterns = [
 
     # /my/delete/
     path('delete/', UserDeleteView.as_view(), name='delete_account'),
+
+    # /my/api/
+    path('api/', UserView.as_view(), name='user_api')
 ]
