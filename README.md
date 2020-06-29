@@ -128,3 +128,34 @@
 ```http request
 204 No Content
 ```
+
+## Bedroom
+
+### List Bedrooms
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/bedroom/api/` | GET | No | No |
+
+##### Description
+>Endpoint to list all bedrooms.
+
+##### Output:
+```json
+[{bedrooms}]
+```
+
+### Get Bedroom Info
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/bedroom/api/<id:bedroom>/` | GET | No | No |
+
+##### Description
+>Endpoint to list bedroom by id.
+
+##### Output:
+```json
+{bedroom}
+```
+
+##### Obs
+> Create (POST), Update (PUT and PATCH) and Delete (DELETE) a bedroom is unavailable.
