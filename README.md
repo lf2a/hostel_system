@@ -159,3 +159,53 @@
 
 ##### Obs
 > Create (POST), Update (PUT and PATCH) and Delete (DELETE) a bedroom is unavailable.
+
+## Booking
+
+### Get all booking
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/booking/api/` | GET | Yes | No |
+
+##### Description
+>Endpoint to list all booking by client id.
+
+##### Output:
+```json
+[]
+```
+
+### Get booking by pk
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/booking/api/<pk>/` | GET | Yes | No |
+
+##### Description
+>Endpoint to get booking info by booking id.
+
+##### Output:
+```json
+{
+  "id": 30,
+  "client": 1,
+  "bedroom": 1,
+  "total": "246.00",
+  "start": "2020-07-12",
+  "finish": "2020-07-13"
+}
+```
+
+### Delete booking by pk
+| Endpoint | Method | Auth | Body (JSON) |
+|:---:|:---:|:---:|:---:|
+| `/booking/api/<pk>/` | DELETE | Yes | No |
+
+##### Description
+>Endpoint to delete booking by booking id and change 'is_available=False' to 'is_available=True' in bedroom object.
+
+##### Output:
+```json
+```
+
+##### Obs
+> Update (PUT and PATCH) a booking is unavailable.
