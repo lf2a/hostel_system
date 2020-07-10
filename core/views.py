@@ -20,6 +20,7 @@ class HomePageView(TemplateView):
 
 
 class ContactView(FormView):
+    template_name = 'core/index.html'
     http_method_names = ['post']
     form_class = ContactForm
     success_url = reverse_lazy('index')
